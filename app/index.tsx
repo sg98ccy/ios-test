@@ -1,46 +1,57 @@
 import { Stack } from 'expo-router';
-import { useColorScheme } from 'nativewind';
 import * as React from 'react';
 import { ScrollView, View } from 'react-native';
-import { Appbar, FAB, IconButton, Searchbar } from 'react-native-paper';
-import { WelcomeCard } from '@/components/screens/home/WelcomeCard';
-import { FeaturesSection } from '@/components/screens/home/FeaturesSection';
-import { QuickActionsSection } from '@/components/screens/home/QuickActionsSection';
+import { ModernHeader } from '@/components/screens/home/ModernHeader';
+import { StatsSection } from '@/components/screens/home/StatsSection';
+import {
+  NotificationTestCard,
+  HapticsTestCard,
+  CameraTestCard,
+  LocationTestCard,
+  BiometricsTestCard,
+  DeviceInfoCard,
+  BrightnessTestCard,
+} from '@/components/screens/home/IOSTestCards';
+import { Text } from '@/components/ui/text';
 
 // =========================[ HOME SCREEN ]==================================
 
 export default function HomeScreen() {
-  const { colorScheme, toggleColorScheme } = useColorScheme();
-  const [searchQuery, setSearchQuery] = React.useState('');
-
   return (
     <>
       <Stack.Screen options={{ headerShown: false }} />
-      <View className="flex-1">
-        <Appbar.Header>
-          <Appbar.Content title="Home" />
-          <IconButton
-            icon={colorScheme === 'dark' ? 'white-balance-sunny' : 'moon-waning-crescent'}
-            onPress={toggleColorScheme}
-          />
-        </Appbar.Header>
+      <View className="flex-1 bg-background">
+        <ModernHeader userName="iOS Tester" userInitials="IT" />
 
-        <ScrollView className="flex-1">
-          <View className="gap-4 p-4">
-            <Searchbar
-              placeholder="Search"
-              onChangeText={setSearchQuery}
-              value={searchQuery}
-              elevation={2}
-            />
+        <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
+          <View className="gap-6 p-4">
+            <StatsSection />
 
-            <WelcomeCard />
-            <FeaturesSection />
-            <QuickActionsSection />
+            {/* Primary iOS Features */}
+            <View className="gap-3">
+              <Text variant="h4" className="mb-1 text-xl">
+                Core iOS Features
+              </Text>
+              <NotificationTestCard />
+              <BiometricsTestCard />
+              <HapticsTestCard />
+            </View>
+
+            {/* Hardware & Sensors */}
+            <View className="gap-3">
+              <Text variant="h4" className="mb-1 text-xl">
+                Hardware & Sensors
+              </Text>
+              <CameraTestCard />
+              <LocationTestCard />
+              <BrightnessTestCard />
+              <DeviceInfoCard />
+            </View>
+
+            {/* Bottom padding for comfortable scrolling */}
+            <View className="h-6" />
           </View>
         </ScrollView>
-
-        <FAB icon="plus" style={{ position: 'absolute', margin: 16, right: 0, bottom: 0 }} />
       </View>
     </>
   );

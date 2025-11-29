@@ -16,6 +16,9 @@ export default function NotFoundScreen() {
         className="flex-1 items-center justify-center gap-6 bg-background px-6"
         style={{ paddingTop: insets.top, paddingBottom: insets.bottom }}>
         <View className="items-center gap-3">
+          <Text variant="muted" className="text-center">
+            (Testing Error Page)
+          </Text>
           <Text variant="h1" className="text-center text-foreground">
             404
           </Text>

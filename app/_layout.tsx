@@ -1,6 +1,7 @@
 import '@/global.css';
 
 import { NAV_THEME } from '@/lib/theme';
+import { IOSTestProvider } from '@/lib/IOSTestContext';
 import { ThemeProvider } from '@react-navigation/native';
 import { PortalHost } from '@rn-primitives/portal';
 import { Tabs } from 'expo-router';
@@ -16,7 +17,7 @@ import {
 } from '@expo-google-fonts/inter';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
-import { HomeIcon, SquareIcon } from 'lucide-react-native';
+import { IconHome, IconSquare } from '@tabler/icons-react-native';
 
 // Prevent splash screen from auto-hiding
 SplashScreen.preventAutoHideAsync();
@@ -110,31 +111,33 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={NAV_THEME[colorScheme ?? 'light']}>
-      <PaperProvider theme={colorScheme === 'dark' ? darkTheme : lightTheme}>
-        <StatusBar style={colorScheme === 'dark' ? 'light' : 'dark'} />
-        <Tabs
-          screenOptions={{
-            headerShown: false,
-            tabBarActiveTintColor: colorScheme === 'dark' ? '#fff' : '#000',
-            tabBarInactiveTintColor: colorScheme === 'dark' ? '#888' : '#666',
-          }}>
-          <Tabs.Screen
-            name="index"
-            options={{
-              title: 'Paper',
-              tabBarIcon: ({ color, size }) => <HomeIcon size={size} color={color} />,
-            }}
-          />
-          <Tabs.Screen
-            name="reusables"
-            options={{
-              title: 'Reusables',
-              tabBarIcon: ({ color, size }) => <SquareIcon size={size} color={color} />,
-            }}
-          />
-        </Tabs>
-        <PortalHost />
-      </PaperProvider>
+      <IOSTestProvider>
+        <PaperProvider theme={colorScheme === 'dark' ? darkTheme : lightTheme}>
+          <StatusBar style={colorScheme === 'dark' ? 'light' : 'dark'} />
+          <Tabs
+            screenOptions={{
+              headerShown: false,
+              tabBarActiveTintColor: colorScheme === 'dark' ? '#fff' : '#000',
+              tabBarInactiveTintColor: colorScheme === 'dark' ? '#888' : '#666',
+            }}>
+            <Tabs.Screen
+              name="index"
+              options={{
+                title: 'Paper',
+                tabBarIcon: ({ color, size }) => <IconHome size={size} color={color} />,
+              }}
+            />
+            <Tabs.Screen
+              name="reusables"
+              options={{
+                title: 'Reusables',
+                tabBarIcon: ({ color, size }) => <IconSquare size={size} color={color} />,
+              }}
+            />
+          </Tabs>
+          <PortalHost />
+        </PaperProvider>
+      </IOSTestProvider>
     </ThemeProvider>
   );
 }

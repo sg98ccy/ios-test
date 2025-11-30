@@ -17,14 +17,17 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true,
+      "bundleIdentifier": "com.integratedai.iostest",
+      "buildNumber": "1",
+      "supportsTablet": false,
       "infoPlist": {
         "NSCameraUsageDescription": "This app needs camera access to test iOS camera functionality",
         "NSLocationWhenInUseUsageDescription": "This app needs location access to test iOS location services",
         "NSCalendarsUsageDescription": "This app needs calendar access to test iOS calendar integration",
         "NSContactsUsageDescription": "This app needs contacts access to test iOS contacts functionality",
         "NSFaceIDUsageDescription": "This app uses Face ID to test biometric authentication",
-        "NSUserNotificationsUsageDescription": "This app needs notification permission to test iOS notification features"
+        "NSUserNotificationsUsageDescription": "This app needs notification permission to test iOS notification features",
+        "ITSAppUsesNonExemptEncryption": false
       }
     },
     "android": {
@@ -32,7 +35,15 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION",
+        "android.permission.USE_BIOMETRIC",
+        "android.permission.USE_FINGERPRINT"
+      ]
     },
     "web": {
       "bundler": "metro",
@@ -62,6 +73,12 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "6a36902c-724c-4a2e-91e0-84ce56c757a7"
+      }
     }
   }
 }

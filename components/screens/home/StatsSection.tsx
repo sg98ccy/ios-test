@@ -2,9 +2,9 @@ import * as React from 'react';
 import { View } from 'react-native';
 import { Text } from '@/components/ui/text';
 import { Icon } from '@/components/ui/icon';
-import { CheckCircle2, AlertCircle, Clock } from 'lucide-react-native';
+import { CheckCircle2, Clock } from 'lucide-react-native';
 import { cn } from '@/lib/utils';
-import { useIOSTest } from '@/lib/IOSTestContext';
+import { IOS_FEATURES, useIOSTest } from '@/lib/IOSTestContext';
 
 // =========================[ STATS SECTION ]==================================
 
@@ -31,10 +31,10 @@ function StatItem({ label, value, icon, color, bgColor }: StatItemProps) {
 }
 
 export function StatsSection() {
-  const { getTestCount, getSuccessCount, getFailedCount } = useIOSTest();
-  const totalTests = 7; // Total number of iOS features available
-  const completedTests = getTestCount();
-  const pendingTests = totalTests - completedTests;
+  const { getSuccessCount } = useIOSTest();
+  const totalFeatures = IOS_FEATURES.length;
+  const passedTests = getSuccessCount();
+  const pendingTests = Math.max(totalFeatures - passedTests, 0);
 
   return (
     <View className="gap-3">
@@ -43,8 +43,8 @@ export function StatsSection() {
       </Text>
       <View className="flex-row gap-3">
         <StatItem
-          label="Tests Run"
-          value={completedTests}
+          label="Tests Passed"
+          value={`${passedTests}/${totalFeatures}`}
           icon={CheckCircle2}
           color="bg-green-500"
           bgColor="bg-green-50 dark:bg-green-950/30"

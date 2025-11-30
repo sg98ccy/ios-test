@@ -1,14 +1,13 @@
-# iOS Test - React Native Demo App
+# iOS Test - Native Capability Harness
 
-This is a [React Native](https://reactnative.dev/) demonstration project built with [Expo](https://expo.dev/), showcasing both [React Native Paper](https://reactnativepaper.com/) and [React Native Reusables](https://reactnativereusables.com).
+This is an [Expo](https://expo.dev/) / [React Native](https://reactnative.dev/) project that focuses on exercising core iOS device capabilities (notifications, biometrics, camera, location, brightness, haptics, device info) with a lightweight component gallery built using [React Native Reusables](https://reactnativereusables.com).
 
 ## Purpose
 
 This application serves as a testing ground for:
-- **iOS Deployment**: Testing build configurations, deployment processes, and iOS-specific features
-- **React Native Paper**: Demonstrating Material Design 3 components and theming capabilities
-- **React Native Reusables**: Showcasing accessible, headless UI components with Tailwind CSS styling
-- **Cross-platform Development**: Validating consistent behavior across iOS, Android, and Web platforms
+- **iOS Native Capabilities**: Quick, tap-to-run tests for common device permissions and APIs
+- **Cross-platform Development**: Validate consistent behavior across iOS, Android, and Web
+- **React Native Reusables**: Showcase accessible, headless UI components styled with Tailwind CSS
 - **Custom Typography**: Implementation of Google Fonts (Inter) with proper font loading and configuration
 
 ## Project Structure
@@ -17,26 +16,23 @@ This application serves as a testing ground for:
 ios-test/
 ├── app/                    # Expo Router file-based routing
 │   ├── _layout.tsx        # Root layout with tabs navigation
-│   ├── index.tsx          # React Native Paper demo tab
-│   └── reusables.tsx      # React Native Reusables demo tab
+│   ├── index.tsx          # iOS feature testing tab (primary)
+│   └── reusables.tsx      # React Native Reusables component gallery
 ├── components/            # Reusable UI components
 │   └── ui/               # React Native Reusables components
 ├── lib/                  # Utilities and configuration
 │   ├── theme.ts          # Navigation and color themes
 │   └── utils.ts          # Helper functions
-├── assets/               # Images and static resources
-└── .github/              # GitHub configuration
-    └── copilot-instructions.md  # AI development guidelines
+└── assets/               # Images and static resources
 ```
 
 ## Features
 
-### Tab 1: React Native Paper
-- Material Design 3 components (Cards, FAB, Searchbar, Chips)
-- Custom Inter font family integration
-- Light/dark theme switching
-- Elevated surfaces and proper Material Design elevation
-- Feature showcase with icons and quick actions
+### Tab 1: iOS Feature Tests (primary)
+- Tap-to-run cards for Notifications, Biometrics (Face ID/Touch ID), Haptics, Camera, Location, Brightness, and Device Info
+- Permission prompts wired to the relevant Expo APIs with success/fail feedback
+- Quick stats that track unique successful tests and remaining unverified capabilities
+- Themed header with avatar, greeting, and light/dark toggle
 
 ### Tab 2: React Native Reusables
 - Minimalist black and white aesthetic
@@ -49,7 +45,7 @@ ios-test/
 ### Technical Highlights
 - Built with [Expo Router](https://expo.dev/router) for file-based navigation
 - Styled with [Tailwind CSS](https://tailwindcss.com/) via [NativeWind](https://www.nativewind.dev/)
-- Dual UI library implementation (Paper + Reusables)
+- Headless UI primitives built on React Native Reusables
 - New Architecture enabled for improved performance
 - Edge to Edge display support
 - Comprehensive theme support (light/dark modes)
@@ -111,7 +107,6 @@ npx @react-native-reusables/cli@latest add --all
 - **`tailwind.config.js`**: Tailwind CSS customization
 - **`tsconfig.json`**: TypeScript compiler options
 - **`metro.config.js`**: Metro bundler configuration
-- **`.github/copilot-instructions.md`**: Development guidelines for AI assistance
 
 ## Deployment
 
@@ -179,7 +174,7 @@ This project follows strict development principles documented in `.github/copilo
 - [ ] Theme switching (light/dark)
 - [ ] Custom font rendering
 - [ ] Tab navigation
-- [ ] React Native Paper components
+- [ ] Each iOS capability test card (notifications, biometrics, haptics, camera, location, brightness, device info)
 - [ ] React Native Reusables components
 - [ ] Responsive layouts
 - [ ] Accessibility features
@@ -196,7 +191,6 @@ This project follows strict development principles documented in `.github/copilo
 - [React Native Docs](https://reactnative.dev/docs/getting-started)
 - [Expo Docs](https://docs.expo.dev/)
 - [Expo Router Docs](https://expo.dev/router)
-- [React Native Paper Docs](https://reactnativepaper.com/)
 - [React Native Reusables Docs](https://reactnativereusables.com)
 - [NativeWind Docs](https://www.nativewind.dev/)
 - [EAS Build](https://docs.expo.dev/build/introduction/)
@@ -222,4 +216,4 @@ This project is for testing and demonstration purposes.
 
 ---
 
-**Note**: This project demonstrates the integration of two major React Native UI libraries. In production, choose one primary UI library to maintain consistency and reduce bundle size.
+**Note**: This project mixes headless components with a few Paper examples. In production, choose one primary UI approach to maintain consistency and reduce bundle size.

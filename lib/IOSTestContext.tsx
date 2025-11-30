@@ -11,15 +11,22 @@ export type IOSFeature =
   | 'brightness'
   | 'deviceInfo';
 
-interface TestResult {
-  feature: IOSFeature;
-  status: 'success' | 'failed' | 'partial';
-  timestamp: number;
-}
+export const IOS_FEATURES: IOSFeature[] = [
+  'notifications',
+  'biometrics',
+  'haptics',
+  'camera',
+  'location',
+  'brightness',
+  'deviceInfo',
+];
+
+type TestStatus = 'success' | 'failed' | 'partial';
+type TestResults = Partial<Record<IOSFeature, TestStatus>>;
 
 interface IOSTestContextType {
-  testResults: TestResult[];
-  addTestResult: (feature: IOSFeature, status: 'success' | 'failed' | 'partial') => void;
+  testResults: TestResults;
+  addTestResult: (feature: IOSFeature, status: TestStatus) => void;
   getTestCount: () => number;
   getSuccessCount: () => number;
   getFailedCount: () => number;
@@ -30,43 +37,56 @@ interface IOSTestContextType {
 const IOSTestContext = React.createContext<IOSTestContextType | undefined>(undefined);
 
 export function IOSTestProvider({ children }: { children: React.ReactNode }) {
-  const [testResults, setTestResults] = React.useState<TestResult[]>([]);
+  const [testResults, setTestResults] = React.useState<TestResults>({});
+
+  const getHigherPriorityStatus = React.useCallback((current: TestStatus | undefined, next: TestStatus) => {
+    const priority: Record<TestStatus, number> = {
+      failed: 0,
+      partial: 1,
+      success: 2,
+    };
+
+    if (!current) return next;
+    return priority[next] >= priority[current] ? next : current;
+  }, []);
 
   const addTestResult = React.useCallback(
-    (feature: IOSFeature, status: 'success' | 'failed' | 'partial') => {
-      setTestResults((prev) => [
-        ...prev,
-        {
-          feature,
-          status,
-          timestamp: Date.now(),
-        },
-      ]);
+    (feature: IOSFeature, status: TestStatus) => {
+      setTestResults((prev) => {
+        const nextStatus = getHigherPriorityStatus(prev[feature], status);
+        if (nextStatus === prev[feature]) return prev;
+        return {
+          ...prev,
+          [feature]: nextStatus,
+        };
+      });
     },
-    []
+    [getHigherPriorityStatus]
   );
 
   const getTestCount = React.useCallback(() => {
-    return testResults.length;
+    return Object.values(testResults).filter(Boolean).length;
   }, [testResults]);
 
   const getSuccessCount = React.useCallback(() => {
-    return testResults.filter((result) => result.status === 'success').length;
+    return Object.values(testResults).filter((status): status is TestStatus => status === 'success')
+      .length;
   }, [testResults]);
 
   const getFailedCount = React.useCallback(() => {
-    return testResults.filter((result) => result.status === 'failed').length;
+    return Object.values(testResults).filter((status): status is TestStatus => status === 'failed')
+      .length;
   }, [testResults]);
 
   const hasTestedFeature = React.useCallback(
     (feature: IOSFeature) => {
-      return testResults.some((result) => result.feature === feature);
+      return Boolean(testResults[feature]);
     },
     [testResults]
   );
 
   const clearResults = React.useCallback(() => {
-    setTestResults([]);
+    setTestResults({});
   }, []);
 
   const value = React.useMemo(

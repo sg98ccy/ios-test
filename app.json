@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "ios-test",
-    "slug": "ios-test",
+    "name": "integratedai-ios-test",
+    "slug": "integratedai-ios-test",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "ios-test",
+    "scheme": "integratedai-ios-test",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "splash": {

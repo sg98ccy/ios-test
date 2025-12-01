@@ -36,8 +36,8 @@
         <action android:name="android.intent.action.VIEW"/>
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
-        <data android:scheme="ios-test"/>
-        <data android:scheme="exp+ios-test"/>
+        <data android:scheme="integratedai-ios-test"/>
+        <data android:scheme="exp+integratedai-ios-test"/>
       </intent-filter>
     </activity>
   </application>

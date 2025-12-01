@@ -4,7 +4,7 @@ import { NAV_THEME } from '@/lib/theme';
 import { IOSTestProvider } from '@/lib/IOSTestContext';
 import { ThemeProvider } from '@react-navigation/native';
 import { PortalHost } from '@rn-primitives/portal';
-import { Tabs } from 'expo-router';
+import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useColorScheme } from 'nativewind';
 import { PaperProvider, MD3DarkTheme, MD3LightTheme, configureFonts } from 'react-native-paper';
@@ -17,7 +17,6 @@ import {
 } from '@expo-google-fonts/inter';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
-import { IconHome, IconSquare } from '@tabler/icons-react-native';
 
 // Prevent splash screen from auto-hiding
 SplashScreen.preventAutoHideAsync();
@@ -114,27 +113,11 @@ export default function RootLayout() {
       <IOSTestProvider>
         <PaperProvider theme={colorScheme === 'dark' ? darkTheme : lightTheme}>
           <StatusBar style={colorScheme === 'dark' ? 'light' : 'dark'} />
-          <Tabs
+          <Stack
             screenOptions={{
               headerShown: false,
-              tabBarActiveTintColor: colorScheme === 'dark' ? '#fff' : '#000',
-              tabBarInactiveTintColor: colorScheme === 'dark' ? '#888' : '#666',
-            }}>
-            <Tabs.Screen
-              name="index"
-              options={{
-                title: 'Paper',
-                tabBarIcon: ({ color, size }) => <IconHome size={size} color={color} />,
-              }}
-            />
-            <Tabs.Screen
-              name="reusables"
-              options={{
-                title: 'Reusables',
-                tabBarIcon: ({ color, size }) => <IconSquare size={size} color={color} />,
-              }}
-            />
-          </Tabs>
+            }}
+          />
           <PortalHost />
         </PaperProvider>
       </IOSTestProvider>

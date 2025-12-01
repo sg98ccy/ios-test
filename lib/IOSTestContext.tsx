@@ -9,7 +9,18 @@ export type IOSFeature =
   | 'camera'
   | 'location'
   | 'brightness'
-  | 'deviceInfo';
+  | 'deviceInfo'
+  | 'audioRecord'
+  | 'networkRequest'
+  | 'networkStatus'
+  | 'fileStorage'
+  | 'clipboard'
+  | 'accelerometer'
+  | 'gyroscope'
+  | 'shareSheet'
+  | 'actionSheet'
+  | 'mapsLaunch'
+  | 'accessibilityStatus';
 
 export const IOS_FEATURES: IOSFeature[] = [
   'notifications',
@@ -19,10 +30,21 @@ export const IOS_FEATURES: IOSFeature[] = [
   'location',
   'brightness',
   'deviceInfo',
+  'audioRecord',
+  'networkRequest',
+  'networkStatus',
+  'fileStorage',
+  'clipboard',
+  'accelerometer',
+  'gyroscope',
+  'shareSheet',
+  'actionSheet',
+  'mapsLaunch',
+  'accessibilityStatus',
 ];
 
-type TestStatus = 'success' | 'failed' | 'partial';
-type TestResults = Partial<Record<IOSFeature, TestStatus>>;
+export type TestStatus = 'success' | 'failed' | 'partial';
+export type TestResults = Partial<Record<IOSFeature, TestStatus>>;
 
 interface IOSTestContextType {
   testResults: TestResults;

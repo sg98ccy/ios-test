@@ -166,6 +166,54 @@ This project follows strict development principles documented in `.github/copilo
 - **Proper Commenting**: Section dividers for logical blocks
 - **Type Safety**: Full TypeScript implementation
 
+## Code Quality
+
+### Linting & Formatting
+
+The project uses ESLint with TypeScript support and Prettier for code formatting:
+
+```bash
+# Run ESLint
+npm run lint
+
+# Fix ESLint issues automatically
+npm run lint:fix
+
+# Check Prettier formatting
+npm run format:check
+
+# Format all files with Prettier
+npm run format
+
+# Run TypeScript type checking
+npm run type-check
+```
+
+### ESLint Configuration
+- **Expo preset**: Best practices for Expo/React Native development
+- **TypeScript**: Full TypeScript support with @typescript-eslint
+- **React/React Hooks**: Enforces React best practices
+- **Prettier**: Code formatting integrated with ESLint
+
+### CI/CD Pipeline
+
+GitHub Actions workflow runs automatically on pushes and pull requests:
+
+**Lint & Type Check Job** (Ubuntu):
+- ESLint validation
+- Prettier format checking
+- TypeScript type checking
+
+**iOS Build Check Job** (macOS):
+- Dependency installation
+- CocoaPods setup
+- iOS prebuild verification
+
+To set up the workflow:
+1. Add `EXPO_TOKEN` secret to your GitHub repository (from `npx expo login`)
+2. Push to `main` or `develop` branch or open a pull request
+3. View workflow results in the Actions tab
+
 ## Testing Checklist
 
 - [ ] iOS build and deployment
